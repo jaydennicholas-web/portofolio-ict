@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jayden Nicholas Chiandra — Chiandra Capital Group</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            classy: {
+              bg: '#08080A',
+              card: '#121216',
+              border: '#2A2315',
+              gold: '#D4AF37',
+              accent: '#F3C853',
+              text: '#FBF8EF',
+              muted: '#A39E93'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #08080A;
+      color: #FBF8EF;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #F3C853 0%, #D4AF37 50%, #997A15 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-border-glow {
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #08080A;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #2A2315;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #D4AF37;
+    }
+    /* Toast animation */
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .toast-anim {
+      animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-classy-gold selection:text-classy-bg custom-scrollbar min-h-screen flex flex-col">
+
+  <!-- Toast Notification System Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
+  <!-- Sticky Header & Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full bg-classy-bg/90 backdrop-blur-md border-b border-classy-border transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo Brand -->
+      <a href="#" class="flex items-center space-x-3 group">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-classy-accent to-classy-gold flex items-center justify-center font-bold text-classy-bg text-xl tracking-wider shadow-lg group-hover:scale-105 transition-transform">
+          JNC
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-lg tracking-wide text-classy-text group-hover:text-classy-accent transition-colors" id="navBrandTitle">CHIANDRA</span>
+          <span class="text-[10px] tracking-widest text-classy-gold uppercase font-semibold">Capital Group</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+        <a href="#about" class="text-classy-muted hover:text-classy-accent transition-colors">Filosofi</a>
+        <a href="#competencies" class="text-classy-muted hover:text-classy-accent transition-colors">Kompetensi</a>
+        <a href="#portfolio" class="text-classy-muted hover:text-classy-accent transition-colors">Akuisisi & Portofolio</a>
+        <a href="#milestones" class="text-classy-muted hover:text-classy-accent transition-colors">Rekam Jejak</a>
+        <a href="#insights" class="text-classy-muted hover:text-classy-accent transition-colors">Publikasi</a>
+        <a href="#hobbies" class="text-classy-muted hover:text-classy-accent transition-colors">Minat & Kontak</a>
+      </nav>
+
+      <!-- Action & Admin Controls -->
+      <div class="flex items-center space-x-4">
+        <button id="adminLoginBtn" onclick="openLoginModal()" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-classy-gold border border-classy-gold/40 rounded-lg hover:bg-classy-gold hover:text-classy-bg transition-all flex items-center gap-2 shadow-sm active:scale-95">
+          <i class="fa-solid fa-lock text-[10px]"></i>
+          <span>Admin CMS</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Jump Shortcuts Bar -->
+  <div class="bg-classy-card/60 border-b border-classy-border/50 py-2.5 overflow-x-auto custom-scrollbar">
+    <div class="max-w-7xl mx-auto px-4 flex items-center space-x-6 text-xs whitespace-nowrap text-classy-muted">
+      <span class="text-classy-gold font-semibold uppercase tracking-wider flex items-center gap-1.5">
+        <i class="fa-solid fa-bolt text-[10px]"></i> Pintasan Cepat:
+      </span>
+      <a href="#hero" class="hover:text-classy-accent transition-colors">01. Profil Utama</a>
+      <span>•</span>
+      <a href="#about" class="hover:text-classy-accent transition-colors">02. Filosofi & Visi</a>
+      <span>•</span>
+      <a href="#competencies" class="hover:text-classy-accent transition-colors">03. Pilar Keahlian</a>
+      <span>•</span>
+      <a href="#portfolio" class="hover:text-classy-accent transition-colors">04. Akuisisi & Modal</a>
+      <span>•</span>
+      <a href="#milestones" class="hover:text-classy-accent transition-colors">05. Garis Waktu</a>
+      <span>•</span>
+      <a href="#insights" class="hover:text-classy-accent transition-colors">06. Thought Leadership</a>
+      <span>•</span>
+      <a href="#contact" class="hover:text-classy-accent transition-colors">07. Investor Relations</a>
+    </div>
+  </div>
+
+  <!-- MAIN EXECUTIVE CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-20 flex-1">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative pt-6 pb-12 rounded-3xl bg-gradient-to-b from-classy-card/80 to-classy-bg border border-classy-border/60 p-8 sm:p-12 overflow-hidden gold-border-glow">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-classy-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Avatar Column -->
+        <div class="lg:col-span-4 flex flex-col items-center text-center">
+          <div class="relative group">
+            <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full p-1.5 bg-gradient-to-tr from-classy-gold via-classy-accent to-amber-700 shadow-2xl">
+              <img id="displayHeroAvatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80" alt="Jayden Nicholas Chiandra" class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500" onerror="this.onerror=null; this.src='https://placehold.co/400x400/121216/D4AF37?text=JNC';" />
+            </div>
+            <span class="absolute bottom-2 right-4 bg-classy-bg border border-classy-gold text-classy-accent text-[10px] font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Active Partner
+            </span>
+          </div>
+        </div>
+
+        <!-- Info Column -->
+        <div class="lg:col-span-8 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-classy-gold/10 border border-classy-gold/30 text-classy-accent text-xs font-semibold uppercase tracking-widest">
+            <i class="fa-solid fa-crown text-[10px]"></i> Executive Office
+          </div>
+          
+          <div class="space-y-2">
+            <h1 id="displayHeroName" class="text-3xl sm:text-5xl font-extrabold text-classy-text tracking-tight">
+              Jayden Nicholas Chiandra
+            </h1>
+            <p id="displayHeroTitle" class="text-lg sm:text-xl font-medium gold-gradient-text">
+              Managing Partner & Founder — Chiandra Capital Group
+            </p>
+          </div>
+
+          <p id="displayHeroBio" class="text-classy-muted text-sm sm:text-base leading-relaxed max-w-2xl">
+            Memimpin strategi alokasi modal lintas batas, restrukturisasi aset bernilai tinggi, dan akuisisi strategis di sektor teknologi berkembang, real estat komersial, serta investasi alternatif global.
+          </p>
+
+          <div class="pt-2 flex flex-wrap gap-4 justify-center lg:justify-start">
+            <a href="#contact" id="displayHeroCta" class="px-6 py-3 bg-gradient-to-r from-classy-accent to-classy-gold text-classy-bg font-bold rounded-xl text-sm hover:opacity-90 transition-all shadow-lg shadow-classy-gold/20 flex items-center gap-2">
+              <span>Inquire Partnership</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#portfolio" class="px-6 py-3 bg-classy-card border border-classy-border text-classy-text hover:border-classy-gold/50 font-semibold rounded-xl text-sm transition-all flex items-center gap-2">
+              <i class="fa-solid fa-briefcase text-classy-gold text-xs"></i>
+              <span>Tinjau Akuisisi & Portofolio</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXECUTIVE ABOUT & PHILOSOPHY SECTION -->
+    <section id="about" class="space-y-8">
+      <div class="border-l-4 border-classy-gold pl-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h2 id="displayAboutHeaderTitle" class="text-2xl font-bold text-classy-text">Filosofi & Alokasi Modal</h2>
+          <p id="displayAboutHeaderSub" class="text-xs text-classy-muted uppercase tracking-wider mt-1">Prinsip Manajemen Risiko & Visi Berkelanjutan</p>
+        </div>
+        <span class="text-xs text-classy-gold font-semibold bg-classy-gold/10 px-3 py-1 rounded-full border border-classy-gold/20 w-max">
+          <i class="fa-solid fa-shield-halved mr-1"></i> Capital Preservation
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 bg-classy-card border border-classy-border rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl">
+          <div id="displayAboutText" class="text-classy-text/90 text-sm sm:text-base leading-relaxed space-y-4">
+            <!-- Content rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Metric Chips & Quote Sidebar -->
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 space-y-6 flex flex-col justify-between shadow-xl">
+          <div class="space-y-4">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-classy-gold border-b border-classy-border pb-3 flex items-center justify-between">
+              <span>Fokus Strategis</span>
+              <i class="fa-solid fa-compass text-xs"></i>
+            </h3>
+            <div id="displayAboutChips" class="flex flex-wrap gap-2">
+              <!-- Chips rendered via JS -->
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-classy-bg/80 border border-classy-border/80 space-y-2">
+            <i class="fa-solid fa-quote-left text-classy-gold/40 text-xl"></i>
+            <p id="displayAboutQuote" class="text-xs text-classy-muted italic leading-relaxed">
+              "Preservasi modal adalah fondasi utama dari penciptaan nilai jangka panjang yang eksponensial."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRATEGIC COMPETENCIES -->
+    <section id="competencies" class="space-y-8">
+      <div class="border-l-4 border-classy-gold pl-4">
+        <h2 class="text-2xl font-bold text-classy-text">Pilar Keahlian Strategis</h2>
+        <p class="text-xs text-classy-muted uppercase tracking-wider mt-1">Kapabilitas Inti Operasional & Eksekusi Investment</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Competency Card 1 -->
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 hover:border-classy-gold/50 transition-all group shadow-lg">
+          <div class="w-12 h-12 rounded-xl bg-classy-gold/10 border border-classy-gold/20 flex items-center justify-center text-classy-gold text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <h3 class="text-lg font-bold text-classy-text mb-2">Capital Allocation</h3>
+          <p class="text-xs text-classy-muted leading-relaxed">Penyusunan portofolio multi-aset dengan perhitungan imbal hasil terkoreksi risiko secara sistematis dan terukur.</p>
+        </div>
+
+        <!-- Competency Card 2 -->
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 hover:border-classy-gold/50 transition-all group shadow-lg">
+          <div class="w-12 h-12 rounded-xl bg-classy-gold/10 border border-classy-gold/20 flex items-center justify-center text-classy-gold text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-handshake"></i>
+          </div>
+          <h3 class="text-lg font-bold text-classy-text mb-2">Cross-Border M&A</h3>
+          <p class="text-xs text-classy-muted leading-relaxed">Eksekusi akuisisi dan penggabungan usaha lintas negara dengan pemahaman regulasi & kepatuhan pajak global.</p>
+        </div>
+
+        <!-- Competency Card 3 -->
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 hover:border-classy-gold/50 transition-all group shadow-lg">
+          <div class="w-12 h-12 rounded-xl bg-classy-gold/10 border border-classy-gold/20 flex items-center justify-center text-classy-gold text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-building-columns"></i>
+          </div>
+          <h3 class="text-lg font-bold text-classy-text mb-2">Family Office Governance</h3>
+          <p class="text-xs text-classy-muted leading-relaxed">Strukturisasi entitas pengelola kekayaan keluarga (Single/Multi Family Office) untuk suksesi antar-generasi.</p>
+        </div>
+
+        <!-- Competency Card 4 -->
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 hover:border-classy-gold/50 transition-all group shadow-lg">
+          <div class="w-12 h-12 rounded-xl bg-classy-gold/10 border border-classy-gold/20 flex items-center justify-center text-classy-gold text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-leaf"></i>
+          </div>
+          <h3 class="text-lg font-bold text-classy-text mb-2">ESG & Impact Investing</h3>
+          <p class="text-xs text-classy-muted leading-relaxed">Integrasi standar keberlanjutan lingkungan dan tata kelola sosial ke dalam setiap keputusan alokasi dana.</p>
+        </div>
+
+        <!-- Competency Card 5 -->
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 hover:border-classy-gold/50 transition-all group shadow-lg">
+          <div class="w-12 h-12 rounded-xl bg-classy-gold/10 border border-classy-gold/20 flex items-center justify-center text-classy-gold text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-palette"></i>
+          </div>
+          <h3 class="text-lg font-bold text-classy-text mb-2">Fine Art & Tangible Assets</h3>
+          <p class="text-xs text-classy-muted leading-relaxed">Diversifikasi pada aset berwujud kelas atas meliputi karya seni berharga tinggi, koleksi langka, dan properti berharga.</p>
+        </div>
+
+        <!-- Competency Card 6 -->
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 hover:border-classy-gold/50 transition-all group shadow-lg">
+          <div class="w-12 h-12 rounded-xl bg-classy-gold/10 border border-classy-gold/20 flex items-center justify-center text-classy-gold text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+          <h3 class="text-lg font-bold text-classy-text mb-2">Thought Leadership</h3>
+          <p class="text-xs text-classy-muted leading-relaxed">Publikasi riset makroekonomi berkala serta pandangan strategis mengenai tren pasar privat global.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVESTMENT PORTFOLIO & ACQUISITIONS SECTION -->
+    <section id="portfolio" class="space-y-8">
+      <div class="border-l-4 border-classy-gold pl-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h2 class="text-2xl font-bold text-classy-text">Portofolio Akuisisi & Investasi</h2>
+          <p class="text-xs text-classy-muted uppercase tracking-wider mt-1">Sektor Unggulan & Metrik Kinerja Deal Direct</p>
+        </div>
+        <span class="text-xs text-classy-accent font-semibold bg-classy-gold/10 px-3 py-1 rounded-full border border-classy-gold/20 w-max">
+          <i class="fa-solid fa-chart-pie mr-1"></i> Direct Equity Deals
+        </span>
+      </div>
+
+      <div id="displayPortfolioGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- JS renders Portfolio Items -->
+      </div>
+    </section>
+
+    <!-- MILESTONES TIMELINE -->
+    <section id="milestones" class="space-y-8">
+      <div class="border-l-4 border-classy-gold pl-4">
+        <h2 class="text-2xl font-bold text-classy-text">Rekam Jejak & Milestones</h2>
+        <p class="text-xs text-classy-muted uppercase tracking-wider mt-1">Perjalanan Pertumbuhan Group</p>
+      </div>
+
+      <div class="bg-classy-card border border-classy-border rounded-2xl p-6 sm:p-10 shadow-xl">
+        <div id="displayMilestonesTimeline" class="relative border-l-2 border-classy-border ml-4 sm:ml-8 space-y-8">
+          <!-- JS renders Milestones -->
+        </div>
+      </div>
+    </section>
+
+    <!-- INSIGHTS & PUBLICATIONS -->
+    <section id="insights" class="space-y-8">
+      <div class="border-l-4 border-classy-gold pl-4">
+        <h2 class="text-2xl font-bold text-classy-text">Insights & Thought Leadership</h2>
+        <p class="text-xs text-classy-muted uppercase tracking-wider mt-1">Riset & Pandangan Makroekonomi</p>
+      </div>
+
+      <div id="displayInsightsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- JS renders Insights -->
+      </div>
+    </section>
+
+    <!-- HOBBIES & CONTACT SECTION -->
+    <section id="hobbies" class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      
+      <!-- Hobbies Column (Left) -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="border-l-4 border-classy-gold pl-4">
+          <h2 class="text-2xl font-bold text-classy-text">Minat & Gaya Hidup Eksklusif</h2>
+          <p class="text-xs text-classy-muted uppercase tracking-wider mt-1">Koleksi & Kegiatan Di Luar Ruang Rapat</p>
+        </div>
+
+        <div id="displayHobbiesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- JS renders Hobbies Cards -->
+        </div>
+      </div>
+
+      <!-- Contact Form Column (Right) -->
+      <div id="contact" class="lg:col-span-6 space-y-6">
+        <div class="border-l-4 border-classy-gold pl-4">
+          <h2 class="text-2xl font-bold text-classy-text">Investor Relations</h2>
+          <p class="text-xs text-classy-muted uppercase tracking-wider mt-1">Hubungi Executive Office</p>
+        </div>
+
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl">
+          <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-classy-gold uppercase tracking-wider mb-1">Nama Lengkap</label>
+              <input type="text" required placeholder="Lord / Lady / Mr. / Ms." class="w-full bg-classy-bg border border-classy-border rounded-xl px-4 py-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold transition-colors" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-classy-gold uppercase tracking-wider mb-1">Email Perusahaan / Institusi</label>
+              <input type="email" required placeholder="name@firm.com" class="w-full bg-classy-bg border border-classy-border rounded-xl px-4 py-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold transition-colors" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-classy-gold uppercase tracking-wider mb-1">Subjek Diskusi</label>
+              <select class="w-full bg-classy-bg border border-classy-border rounded-xl px-4 py-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold transition-colors">
+                <option>Co-Investment Opportunities</option>
+                <option>Private Wealth Management</option>
+                <option>Strategic Partnership & Acquisition</option>
+                <option>Media & Speaking Engagement</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-classy-gold uppercase tracking-wider mb-1">Pesan / Penawaran</label>
+              <textarea rows="4" required placeholder="Sampaikan poin utama diskusi..." class="w-full bg-classy-bg border border-classy-border rounded-xl px-4 py-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold transition-colors resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-classy-accent to-classy-gold text-classy-bg font-bold rounded-xl text-sm hover:opacity-90 transition-all shadow-lg shadow-classy-gold/10 active:scale-95">
+              Kirim Pesan Resmi
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-classy-card border-t border-classy-border mt-20 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-classy-gold/20 border border-classy-gold/40 flex items-center justify-center font-bold text-classy-gold text-sm">
+          JNC
+        </div>
+        <span class="text-xs text-classy-muted" id="displayFooterCopyright">
+          © 2026 Chiandra Capital Group. All rights reserved.
+        </span>
+      </div>
+
+      <!-- Social Links -->
+      <div class="flex items-center space-x-4" id="displayFooterSocials">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALS & CMS WORKSPACE ==================== -->
+
+  <!-- 1. LOGIN ADMIN MODAL -->
+  <div id="loginModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-classy-card border border-classy-border w-full max-w-md rounded-2xl p-6 sm:p-8 space-y-6 relative shadow-2xl gold-border-glow">
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-classy-muted hover:text-classy-text text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center space-y-2">
+        <div class="w-12 h-12 rounded-xl bg-classy-gold/10 border border-classy-gold/30 mx-auto flex items-center justify-center text-classy-gold text-xl">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 class="text-xl font-bold text-classy-text">Otentikasi CMS Admin</h3>
+        <p class="text-xs text-classy-muted">Masukkan kredensial eksekutif untuk mengakses editor profil</p>
+      </div>
+
+      <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-classy-gold uppercase mb-1">Username</label>
+          <input type="text" id="loginUser" required placeholder="Masukkan username" class="w-full bg-classy-bg border border-classy-border rounded-xl px-4 py-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-classy-gold uppercase mb-1">Password</label>
+          <input type="password" id="loginPass" required placeholder="Masukkan password" class="w-full bg-classy-bg border border-classy-border rounded-xl px-4 py-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+        </div>
+        <button type="submit" class="w-full py-3 bg-classy-gold text-classy-bg font-bold rounded-xl text-sm hover:bg-classy-accent transition-all shadow-md active:scale-95">
+          Masuk ke CMS Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. FULLSCREEN CMS WORKSPACE -->
+  <div id="cmsModal" class="fixed inset-0 bg-classy-bg z-50 hidden flex flex-col overflow-hidden">
+    <!-- CMS Header -->
+    <header class="bg-classy-card border-b border-classy-border px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="bg-classy-gold/20 text-classy-gold text-xs font-bold px-2.5 py-1 rounded-md border border-classy-gold/30">CMS LIVE EDITOR</span>
+        <h2 class="text-lg font-bold text-classy-text hidden sm:inline">Manajemen Konten Executive Profile</h2>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <button onclick="confirmResetData()" class="px-3 py-1.5 text-xs text-rose-400 border border-rose-500/30 rounded-lg hover:bg-rose-500/10 transition-colors">
+          <i class="fa-solid fa-rotate-left mr-1"></i> Reset Default
+        </button>
+        <button onclick="saveCmsChanges()" class="px-4 py-1.5 text-xs font-bold bg-classy-gold text-classy-bg rounded-lg hover:bg-classy-accent transition-all shadow-md active:scale-95">
+          <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Semua
+        </button>
+        <button onclick="closeCmsModal()" class="px-3 py-1.5 text-xs text-classy-muted hover:text-classy-text border border-classy-border rounded-lg">
+          Tutup CMS
+        </button>
+      </div>
+    </header>
+
+    <!-- CMS Content Container -->
+    <div class="flex-1 overflow-y-auto p-6 max-w-5xl mx-auto w-full space-y-8 custom-scrollbar">
+      
+      <!-- CMS Tab Nav -->
+      <div class="flex border-b border-classy-border space-x-2 sm:space-x-4 text-xs sm:text-sm font-semibold overflow-x-auto custom-scrollbar pb-1">
+        <button onclick="switchCmsTab('hero')" id="tabBtnHero" class="pb-3 px-2 border-b-2 border-classy-gold text-classy-gold whitespace-nowrap">
+          <i class="fa-solid fa-user-tie mr-1.5"></i>Hero Profile
+        </button>
+        <button onclick="switchCmsTab('about')" id="tabBtnAbout" class="pb-3 px-2 border-b-2 border-transparent text-classy-muted hover:text-classy-text whitespace-nowrap">
+          <i class="fa-solid fa-feather-pointed mr-1.5"></i>Filosofi & Visi
+        </button>
+        <button onclick="switchCmsTab('portfolio')" id="tabBtnPortfolio" class="pb-3 px-2 border-b-2 border-transparent text-classy-muted hover:text-classy-text whitespace-nowrap">
+          <i class="fa-solid fa-briefcase mr-1.5"></i>Akuisisi & Portofolio
+        </button>
+        <button onclick="switchCmsTab('hobbies')" id="tabBtnHobbies" class="pb-3 px-2 border-b-2 border-transparent text-classy-muted hover:text-classy-text whitespace-nowrap">
+          <i class="fa-solid fa-compass mr-1.5"></i>Minat & Hobi
+        </button>
+        <button onclick="switchCmsTab('socials')" id="tabBtnSocials" class="pb-3 px-2 border-b-2 border-transparent text-classy-muted hover:text-classy-text whitespace-nowrap">
+          <i class="fa-solid fa-globe mr-1.5"></i>Socials & Copyright
+        </button>
+      </div>
+
+      <!-- TAB 1: HERO EDITOR -->
+      <div id="cmsTabHero" class="space-y-4">
+        <h3 class="text-base font-bold text-classy-gold flex items-center gap-2">
+          <i class="fa-solid fa-id-card"></i> Edit Informasi Hero Utama
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold mb-1 text-classy-muted">Nama Eksekutif</label>
+            <input type="text" id="inputHeroName" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1 text-classy-muted">Gelar / Jabatan Utama</label>
+            <input type="text" id="inputHeroTitle" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">URL Foto Profil / Avatar</label>
+          <input type="text" id="inputHeroAvatar" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">Ringkasan Bio Eksekutif</label>
+          <textarea id="inputHeroBio" rows="3" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold resize-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">Teks Tombol CTA Utama</label>
+          <input type="text" id="inputHeroCta" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+        </div>
+      </div>
+
+      <!-- TAB 2: FILOSOFI & VISI EDITOR -->
+      <div id="cmsTabAbout" class="space-y-6 hidden">
+        <div class="flex items-center justify-between border-b border-classy-border pb-3">
+          <h3 class="text-base font-bold text-classy-gold flex items-center gap-2">
+            <i class="fa-solid fa-scroll"></i> Edit Filosofi & Visi Alokasi Modal
+          </h3>
+          <span class="text-xs text-classy-muted">Teks Narasi & Sidebar Chips</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold mb-1 text-classy-muted">Judul Seksi Filosofi</label>
+            <input type="text" id="inputAboutTitle" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1 text-classy-muted">Sub-Judul / Subtitle Seksi</label>
+            <input type="text" id="inputAboutSubtitle" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">Judul Paragraf Utama</label>
+          <input type="text" id="inputAboutHeading" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">Narasi Filosofi (Pisahkan antar paragraf dengan dua kali Enter / baris baru)</label>
+          <textarea id="inputAboutText" rows="7" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">Quote Prinsip Utama Eksekutif</label>
+          <textarea id="inputAboutQuote" rows="2" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold resize-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">Chips Fokus Strategis (Pisahkan dengan tanda koma)</label>
+          <input type="text" id="inputAboutChips" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+        </div>
+      </div>
+
+      <!-- TAB 3: AKUISISI & PORTOFOLIO EDITOR -->
+      <div id="cmsTabPortfolio" class="space-y-6 hidden">
+        <div class="flex items-center justify-between border-b border-classy-border pb-3">
+          <h3 class="text-base font-bold text-classy-gold flex items-center gap-2">
+            <i class="fa-solid fa-chart-pie"></i> Kelola Portofolio & Akuisisi Strategis
+          </h3>
+          <button onclick="openPortfolioEditorModal(null)" class="px-3.5 py-2 bg-classy-gold text-classy-bg text-xs font-bold rounded-xl hover:bg-classy-accent transition-all shadow-md active:scale-95 flex items-center gap-1.5">
+            <i class="fa-solid fa-plus text-xs"></i>
+            <span>Tambah Akuisisi Baru</span>
+          </button>
+        </div>
+
+        <div id="cmsPortfolioList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- CMS List Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- TAB 4: HOBBIES EDITOR -->
+      <div id="cmsTabHobbies" class="space-y-6 hidden">
+        <div class="flex items-center justify-between border-b border-classy-border pb-3">
+          <h3 class="text-base font-bold text-classy-gold flex items-center gap-2">
+            <i class="fa-solid fa-gem"></i> Kelola Kartu Minat & Gaya Hidup
+          </h3>
+          <button onclick="openCardEditorModal(null)" class="px-3.5 py-2 bg-classy-gold text-classy-bg text-xs font-bold rounded-xl hover:bg-classy-accent transition-all shadow-md active:scale-95 flex items-center gap-1.5">
+            <i class="fa-solid fa-plus text-xs"></i>
+            <span>Tambah Minat Baru</span>
+          </button>
+        </div>
+        <div id="cmsHobbiesList" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- CMS List Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- TAB 5: SOCIALS & FOOTER EDITOR -->
+      <div id="cmsTabSocials" class="space-y-6 hidden">
+        <h3 class="text-base font-bold text-classy-gold flex items-center gap-2">
+          <i class="fa-solid fa-share-nodes"></i> Edit Link Kontak, Social Media & Hak Cipta
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold mb-1 text-classy-muted">LinkedIn Profile URL</label>
+            <input type="text" id="inputSocialLinkedin" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1 text-classy-muted">Instagram Profile URL</label>
+            <input type="text" id="inputSocialInstagram" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1 text-classy-muted">X / Twitter Profile URL</label>
+            <input type="text" id="inputSocialTwitter" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1 text-classy-muted">Email Kontak Resmi</label>
+            <input type="text" id="inputSocialEmail" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">Teks Hak Cipta Footer</label>
+          <input type="text" id="inputSocialCopyright" class="w-full bg-classy-card border border-classy-border rounded-xl p-3 text-sm text-classy-text" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. MODAL EDITOR AKUISISI & PORTOFOLIO -->
+  <div id="portfolioEditorModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-classy-card border border-classy-border w-full max-w-lg rounded-2xl p-6 space-y-4 relative shadow-2xl gold-border-glow">
+      <button onclick="closePortfolioEditorModal()" class="absolute top-4 right-4 text-classy-muted hover:text-classy-text text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <div class="flex items-center gap-2 border-b border-classy-border pb-3">
+        <i class="fa-solid fa-file-signature text-classy-gold"></i>
+        <h3 id="portfolioEditorTitle" class="text-lg font-bold text-classy-gold">Edit Kartu Akuisisi</h3>
+      </div>
+
+      <input type="hidden" id="portfolioIndex" value="" />
+      
+      <div>
+        <label class="block text-xs font-semibold mb-1 text-classy-muted">Nama Perusahaan / Entitas Akuisisi</label>
+        <input type="text" id="portTitle" placeholder="contoh: AeroTech Systems" class="w-full bg-classy-bg border border-classy-border rounded-xl p-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">Sektor / Industri</label>
+          <input type="text" id="portSector" placeholder="contoh: Dirgantara & Pertahanan" class="w-full bg-classy-bg border border-classy-border rounded-xl p-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-classy-muted">Nilai Deal / Transaksi</label>
+          <input type="text" id="portValue" placeholder="contoh: $120M" class="w-full bg-classy-bg border border-classy-border rounded-xl p-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold mb-1 text-classy-muted">Metrik Pertumbuhan / Target Return</label>
+        <input type="text" id="portGrowth" placeholder="contoh: +28% YoY atau 18.5% IRR" class="w-full bg-classy-bg border border-classy-border rounded-xl p-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold mb-1 text-classy-muted">Deskripsi Singkat / Strategi Transaksi</label>
+        <textarea id="portDesc" rows="3" placeholder="Jelaskan peran alokasi modal dan dampak strategis..." class="w-full bg-classy-bg border border-classy-border rounded-xl p-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold resize-none"></textarea>
+      </div>
+
+      <div class="flex justify-end space-x-3 pt-3 border-t border-classy-border">
+        <button onclick="closePortfolioEditorModal()" class="px-4 py-2 text-xs border border-classy-border rounded-xl text-classy-muted hover:text-classy-text">Batal</button>
+        <button onclick="savePortfolioItem()" class="px-5 py-2 text-xs bg-classy-gold text-classy-bg font-bold rounded-xl hover:bg-classy-accent transition-all shadow-md active:scale-95">Simpan Akuisisi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. MODAL EDITOR KARTU HOBI DINAMIS -->
+  <div id="cardEditorModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-classy-card border border-classy-border w-full max-w-lg rounded-2xl p-6 space-y-4 relative shadow-2xl gold-border-glow">
+      <button onclick="closeCardEditorModal()" class="absolute top-4 right-4 text-classy-muted hover:text-classy-text text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <div class="flex items-center gap-2 border-b border-classy-border pb-3">
+        <i class="fa-solid fa-compass text-classy-gold"></i>
+        <h3 id="cardEditorTitle" class="text-lg font-bold text-classy-gold">Edit Kartu Hobi</h3>
+      </div>
+
+      <input type="hidden" id="hobbyIndex" value="" />
+      <div>
+        <label class="block text-xs font-semibold mb-1 text-classy-muted">Judul Minat / Hobi</label>
+        <input type="text" id="hobbyTitle" class="w-full bg-classy-bg border border-classy-border rounded-xl p-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold mb-1 text-classy-muted">Kategori / Tag Subtitle</label>
+        <input type="text" id="hobbyCategory" class="w-full bg-classy-bg border border-classy-border rounded-xl p-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold mb-1 text-classy-muted">Deskripsi Singkat</label>
+        <textarea id="hobbyDesc" rows="3" class="w-full bg-classy-bg border border-classy-border rounded-xl p-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold resize-none"></textarea>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold mb-1 text-classy-muted">URL Gambar Background</label>
+        <input type="text" id="hobbyImg" class="w-full bg-classy-bg border border-classy-border rounded-xl p-2.5 text-sm text-classy-text focus:outline-none focus:border-classy-gold" />
+      </div>
+
+      <div class="flex justify-end space-x-3 pt-3 border-t border-classy-border">
+        <button onclick="closeCardEditorModal()" class="px-4 py-2 text-xs border border-classy-border rounded-xl text-classy-muted hover:text-classy-text">Batal</button>
+        <button onclick="saveHobbyCard()" class="px-5 py-2 text-xs bg-classy-gold text-classy-bg font-bold rounded-xl hover:bg-classy-accent transition-all shadow-md active:scale-95">Simpan Minat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. DIALOG KONFIRMASI KUSTUM (Ganti confirm()) -->
+  <div id="confirmModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[80] hidden flex items-center justify-center p-4">
+    <div class="bg-classy-card border border-classy-border w-full max-w-sm rounded-2xl p-6 space-y-4 text-center relative shadow-2xl gold-border-glow">
+      <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 mx-auto flex items-center justify-center text-amber-400 text-xl">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 id="confirmTitle" class="text-base font-bold text-classy-text">Konfirmasi Tindakan</h3>
+      <p id="confirmMessage" class="text-xs text-classy-muted leading-relaxed">Apakah Anda yakin ingin melanjutkan tindakan ini?</p>
+      
+      <div class="flex items-center justify-center space-x-3 pt-2">
+        <button id="confirmCancelBtn" class="px-4 py-2 text-xs border border-classy-border rounded-xl text-classy-muted hover:text-classy-text">
+          Batal
+        </button>
+        <button id="confirmOkBtn" class="px-4 py-2 text-xs bg-rose-500 text-white font-bold rounded-xl hover:bg-rose-600 transition-all shadow-md">
+          Ya, Lanjutkan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic & CMS Scripting -->
+  <script>
+    // 1. DATA DEFAULT SITE
+    const DEFAULT_SITE_DATA = {
+      hero: {
+        name: "Jayden Nicholas Chiandra",
+        title: "Managing Partner & Founder — Chiandra Capital Group",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80",
+        bio: "Memimpin strategi alokasi modal lintas batas, restrukturisasi aset bernilai tinggi, dan akuisisi strategis di sektor teknologi berkembang, real estat komersial, serta investasi alternatif global.",
+        ctaText: "Inquire Partnership"
+      },
+      about: {
+        headerTitle: "Filosofi & Alokasi Modal",
+        headerSubtitle: "Prinsip Manajemen Risiko & Visi Berkelanjutan",
+        heading: "Visi & Dedikasi Eksekutif",
+        text: "Chiandra Capital Group berfokus pada eksekusi investasi bernilai strategis tinggi melalui pendekatan disiplin alokasi modal dan pemahaman mendalam atas dinamika pasar makro global.\n\nDengan memprioritaskan prinsip efisiensi risiko dan penciptaan dampak berkelanjutan, kami bermitra dengan para pemimpin industri untuk mempercepat transformasi operasional dan ekspansi geografis.",
+        quote: "Preservasi modal adalah fondasi utama dari penciptaan nilai jangka panjang yang eksponensial.",
+        chips: ["Global Private Equity", "Strategic M&A", "Wealth Stewardship", "Venture Capital", "Real Estate Investment"]
+      },
+      portfolio: [
+        {
+          title: "AeroTech Systems",
+          sector: "Dirgantara & Pertahanan",
+          value: "$120M",
+          growth: "+28% YoY",
+          desc: "Akuisisi mayoritas produsen komponen propulsi satelit komersial."
+        },
+        {
+          title: "Apex Logistics Hub",
+          sector: "Infrastruktur & Logistik",
+          value: "$250M",
+          growth: "18.5% IRR",
+          desc: "Pembangunan pusat distribusi terintegrasi otomatisasi robotik di Asia Tenggara."
+        },
+        {
+          title: "Verde BioEnergy",
+          sector: "Energi Terbarukan",
+          value: "$85M",
+          growth: "Net Zero Certified",
+          desc: "Fasilitas pengolahan limbah organik menjadi bahan bakar penerbangan berkelanjutan."
+        }
+      ],
+      milestones: [
+        { year: "2024", title: "Ekspansi Regional Asia-Pasifik", desc: "Membuka kantor operasional di Singapura & Hong Kong dengan total AUM melampaui $500M." },
+        { year: "2022", title: "Pendirian Fund II ($200M)", desc: "Menutup pendanaan Fund II yang berfokus pada teknologi rantai pasok dan energi terbarukan." },
+        { year: "2019", title: "Pembentukan Chiandra Capital", desc: "Didirikan sebagai Family Office independen yang berfokus pada alokasi modal bernilai tinggi." }
+      ],
+      hobbies: [
+        {
+          title: "Yachting & Marine Exploration",
+          category: "Maritime",
+          desc: "Navigasi laut lepas dan keterlibatan aktif dalam konservasi terumbu karang laut dalam.",
+          img: "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=500&auto=format&fit=crop&q=80"
+        },
+        {
+          title: "Horology & Vintage Timepieces",
+          category: "Collectible",
+          desc: "Pengumpulan dan studi preservasi jam tangan komplikasi mekanis langka abad ke-20.",
+          img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&auto=format&fit=crop&q=80"
+        },
+        {
+          title: "Equestrian & Polo",
+          category: "Sports",
+          desc: "Kompetisi polo profesional dan pembibitan kuda ras unggulan.",
+          img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=500&auto=format&fit=crop&q=80"
+        },
+        {
+          title: "Fine Wine Enology",
+          category: "Lifestyle",
+          desc: "Pengelolaan kebun anggur eksklusif di wilayah Bordeaux dan riset fermentasi organik.",
+          img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=500&auto=format&fit=crop&q=80"
+        }
+      ],
+      insights: [
+        {
+          date: "15 Jan 2026",
+          title: "Navigasi Suku Bunga Global & Alokasi Private Debt",
+          summary: "Analisis komparatif imbal hasil instrumen utang swasta di tengah ketidakpastian kebijakan bank sentral."
+        },
+        {
+          date: "02 Des 2025",
+          title: "Kecerdasan Buatan dalam Operasional Portofolio M&A",
+          summary: "Bagaimana integrasi LLM dan analisis prediktif mempercepat pemulihan margin usaha pasca-akuisisi."
+        },
+        {
+          date: "20 Okt 2025",
+          title: "Masa Depan Real Estat Komersial Berstandar ESG",
+          summary: "Studi kasus transformasi gedung perkantoran tua menjadi aset bernilai sewa tinggi berbasis green building."
+        }
+      ],
+      socials: {
+        linkedin: "https://linkedin.com",
+        instagram: "https://instagram.com",
+        twitter: "https://x.com",
+        email: "office@chiandra.capital",
+        copyright: "© 2026 Chiandra Capital Group. All rights reserved."
+      }
+    };
+
+    // 2. STATE MANAGEMENT
+    let siteData = {};
+    let confirmCallback = null;
+
+    function initData() {
+      const stored = localStorage.getItem('jnc_site_data');
+      if (stored) {
+        try {
+          siteData = JSON.parse(stored);
+          // Fallback deep merge for missing properties
+          if (!siteData.about) siteData.about = DEFAULT_SITE_DATA.about;
+          if (!siteData.portfolio) siteData.portfolio = DEFAULT_SITE_DATA.portfolio;
+        } catch (e) {
+          siteData = JSON.parse(JSON.stringify(DEFAULT_SITE_DATA));
+        }
+      } else {
+        siteData = JSON.parse(JSON.stringify(DEFAULT_SITE_DATA));
+      }
+      renderAll();
+    }
+
+    function saveToStorage() {
+      localStorage.setItem('jnc_site_data', JSON.stringify(siteData));
+      renderAll();
+    }
+
+    // 3. RENDERING FUNCTIONS
+    function renderAll() {
+      renderHero();
+      renderAbout();
+      renderPortfolio();
+      renderMilestones();
+      renderHobbies();
+      renderInsights();
+      renderSocials();
+    }
+
+    function renderHero() {
+      document.getElementById('displayHeroName').innerText = siteData.hero.name || DEFAULT_SITE_DATA.hero.name;
+      document.getElementById('displayHeroTitle').innerText = siteData.hero.title || DEFAULT_SITE_DATA.hero.title;
+      document.getElementById('displayHeroAvatar').src = siteData.hero.avatar || DEFAULT_SITE_DATA.hero.avatar;
+      document.getElementById('displayHeroBio').innerText = siteData.hero.bio || DEFAULT_SITE_DATA.hero.bio;
+      document.getElementById('displayHeroCta').querySelector('span').innerText = siteData.hero.ctaText || DEFAULT_SITE_DATA.hero.ctaText;
+    }
+
+    function renderAbout() {
+      const about = siteData.about || DEFAULT_SITE_DATA.about;
+      
+      const titleElem = document.getElementById('displayAboutHeaderTitle');
+      const subElem = document.getElementById('displayAboutHeaderSub');
+      if (titleElem) titleElem.innerText = about.headerTitle || DEFAULT_SITE_DATA.about.headerTitle;
+      if (subElem) subElem.innerText = about.headerSubtitle || DEFAULT_SITE_DATA.about.headerSubtitle;
+
+      const container = document.getElementById('displayAboutText');
+      const headingText = about.heading || DEFAULT_SITE_DATA.about.heading;
+      const paragraphs = (about.text || DEFAULT_SITE_DATA.about.text).split('\n\n');
+      
+      let htmlContent = `<h3 class="text-lg font-bold text-classy-gold mb-2">${headingText}</h3>`;
+      htmlContent += paragraphs.map(p => `<p class="leading-relaxed">${p}</p>`).join('');
+      container.innerHTML = htmlContent;
+
+      const quoteElem = document.getElementById('displayAboutQuote');
+      if (quoteElem) quoteElem.innerText = `"${about.quote || DEFAULT_SITE_DATA.about.quote}"`;
+
+      const chipsContainer = document.getElementById('displayAboutChips');
+      const chips = about.chips || DEFAULT_SITE_DATA.about.chips;
+      chipsContainer.innerHTML = chips.map(c => `
+        <span class="px-3 py-1 text-xs rounded-lg bg-classy-bg border border-classy-border text-classy-gold font-medium">
+          # ${c.trim()}
+        </span>
+      `).join('');
+    }
+
+    function renderPortfolio() {
+      const container = document.getElementById('displayPortfolioGrid');
+      const portfolioList = siteData.portfolio || DEFAULT_SITE_DATA.portfolio;
+      
+      if (portfolioList.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full p-8 text-center bg-classy-card border border-classy-border rounded-2xl text-classy-muted">
+            <i class="fa-solid fa-folder-open text-2xl mb-2 text-classy-gold"></i>
+            <p class="text-xs">Belum ada portofolio akuisisi yang ditambahkan.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = portfolioList.map(p => `
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 flex flex-col justify-between space-y-4 hover:border-classy-gold/50 transition-all shadow-lg">
+          <div class="space-y-2">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-classy-gold bg-classy-gold/10 px-2.5 py-1 rounded-md border border-classy-gold/20 inline-block">
+              ${p.sector}
+            </span>
+            <h3 class="text-xl font-bold text-classy-text pt-1">${p.title}</h3>
+            <p class="text-xs text-classy-muted leading-relaxed">${p.desc}</p>
+          </div>
+          <div class="pt-4 border-t border-classy-border/60 flex items-center justify-between text-xs font-semibold">
+            <span class="text-classy-text">Nilai Deal: <span class="text-classy-gold font-bold">${p.value}</span></span>
+            <span class="text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 text-[11px] font-bold">${p.growth}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderMilestones() {
+      const container = document.getElementById('displayMilestonesTimeline');
+      container.innerHTML = siteData.milestones.map(m => `
+        <div class="relative pl-6 sm:pl-8 group">
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-classy-bg border-2 border-classy-gold group-hover:bg-classy-gold transition-colors"></div>
+          <span class="text-xs font-bold text-classy-gold tracking-widest uppercase">${m.year}</span>
+          <h3 class="text-lg font-bold text-classy-text mt-0.5">${m.title}</h3>
+          <p class="text-xs text-classy-muted mt-1 leading-relaxed">${m.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderHobbies() {
+      const container = document.getElementById('displayHobbiesGrid');
+      container.innerHTML = siteData.hobbies.map((h) => `
+        <div class="relative rounded-2xl overflow-hidden group h-56 border border-classy-border shadow-lg">
+          <img src="${h.img}" alt="${h.title}" class="w-full h-full object-cover filter brightness-75 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/400x300/121216/D4AF37?text=Minat';" />
+          <div class="absolute inset-0 bg-gradient-to-t from-classy-bg via-classy-bg/60 to-transparent p-4 flex flex-col justify-end space-y-1">
+            <span class="text-[10px] font-bold text-classy-gold uppercase tracking-wider">${h.category}</span>
+            <h3 class="text-sm font-bold text-classy-text leading-snug">${h.title}</h3>
+            <p class="text-[11px] text-classy-muted line-clamp-2">${h.desc}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderInsights() {
+      const container = document.getElementById('displayInsightsGrid');
+      container.innerHTML = siteData.insights.map(i => `
+        <div class="bg-classy-card border border-classy-border rounded-2xl p-6 space-y-3 flex flex-col justify-between hover:border-classy-gold/50 transition-all shadow-lg">
+          <div class="space-y-2">
+            <span class="text-[10px] text-classy-gold font-semibold uppercase tracking-wider">${i.date}</span>
+            <h3 class="text-base font-bold text-classy-text hover:text-classy-accent transition-colors">${i.title}</h3>
+            <p class="text-xs text-classy-muted leading-relaxed">${i.summary}</p>
+          </div>
+          <a href="#contact" class="text-xs text-classy-gold font-semibold flex items-center gap-1 hover:gap-2 transition-all pt-2">
+            <span>Baca Unduhan Publikasi</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
+        </div>
+      `).join('');
+    }
+
+    function renderSocials() {
+      const socials = siteData.socials || DEFAULT_SITE_DATA.socials;
+      document.getElementById('displayFooterCopyright').innerText = socials.copyright || DEFAULT_SITE_DATA.socials.copyright;
+      
+      const container = document.getElementById('displayFooterSocials');
+      container.innerHTML = `
+        <a href="${socials.linkedin}" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-classy-bg border border-classy-border flex items-center justify-center text-classy-muted hover:text-classy-gold hover:border-classy-gold transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+        <a href="${socials.instagram}" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-classy-bg border border-classy-border flex items-center justify-center text-classy-muted hover:text-classy-gold hover:border-classy-gold transition-colors"><i class="fa-brands fa-instagram text-sm"></i></a>
+        <a href="${socials.twitter}" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-classy-bg border border-classy-border flex items-center justify-center text-classy-muted hover:text-classy-gold hover:border-classy-gold transition-colors"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+        <a href="mailto:${socials.email}" class="w-9 h-9 rounded-full bg-classy-bg border border-classy-border flex items-center justify-center text-classy-muted hover:text-classy-gold hover:border-classy-gold transition-colors"><i class="fa-solid fa-envelope text-sm"></i></a>
+      `;
+    }
+
+    // 4. AUTH & MODAL CONTROLS
+    function openLoginModal() {
+      if (sessionStorage.getItem('jnc_admin_logged') === 'true') {
+        openCmsModal();
+      } else {
+        document.getElementById('loginUser').value = '';
+        document.getElementById('loginPass').value = '';
+        document.getElementById('loginModal').classList.remove('hidden');
+      }
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginUser').value = '';
+      document.getElementById('loginPass').value = '';
+      document.getElementById('loginModal').classList.add('hidden');
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const u = document.getElementById('loginUser').value;
+      const p = document.getElementById('loginPass').value;
+
+      if (u === 'admin' && p === 'admin123') {
+        sessionStorage.setItem('jnc_admin_logged', 'true');
+        closeLoginModal();
+        openCmsModal();
+        showToast('Login berhasil! Selamat datang di Admin CMS Dashboard.', 'success');
+      } else {
+        showToast('Kredensial salah! Silakan periksa kembali username dan password Anda.', 'error');
+      }
+      document.getElementById('loginUser').value = '';
+      document.getElementById('loginPass').value = '';
+    }
+
+    function openCmsModal() {
+      populateCmsInputs();
+      document.getElementById('cmsModal').classList.remove('hidden');
+    }
+
+    function closeCmsModal() {
+      document.getElementById('cmsModal').classList.add('hidden');
+    }
+
+    // 5. CMS EDITING & TAB LOGIC
+    function switchCmsTab(tab) {
+      ['Hero', 'About', 'Portfolio', 'Hobbies', 'Socials'].forEach(t => {
+        const btn = document.getElementById(`tabBtn${t}`);
+        const content = document.getElementById(`cmsTab${t}`);
+        if (t.toLowerCase() === tab) {
+          btn.className = "pb-3 px-2 border-b-2 border-classy-gold text-classy-gold font-bold whitespace-nowrap";
+          content.classList.remove('hidden');
+        } else {
+          btn.className = "pb-3 px-2 border-b-2 border-transparent text-classy-muted hover:text-classy-text font-semibold whitespace-nowrap";
+          content.classList.add('hidden');
+        }
+      });
+    }
+
+    function populateCmsInputs() {
+      // Hero Tab
+      document.getElementById('inputHeroName').value = siteData.hero.name || '';
+      document.getElementById('inputHeroTitle').value = siteData.hero.title || '';
+      document.getElementById('inputHeroAvatar').value = siteData.hero.avatar || '';
+      document.getElementById('inputHeroBio').value = siteData.hero.bio || '';
+      document.getElementById('inputHeroCta').value = siteData.hero.ctaText || '';
+
+      // About & Filosofi Tab
+      const about = siteData.about || DEFAULT_SITE_DATA.about;
+      document.getElementById('inputAboutTitle').value = about.headerTitle || '';
+      document.getElementById('inputAboutSubtitle').value = about.headerSubtitle || '';
+      document.getElementById('inputAboutHeading').value = about.heading || '';
+      document.getElementById('inputAboutText').value = about.text || '';
+      document.getElementById('inputAboutQuote').value = about.quote || '';
+      document.getElementById('inputAboutChips').value = (about.chips || []).join(', ');
+
+      // Socials Tab
+      document.getElementById('inputSocialLinkedin').value = siteData.socials.linkedin || '';
+      document.getElementById('inputSocialInstagram').value = siteData.socials.instagram || '';
+      document.getElementById('inputSocialTwitter').value = siteData.socials.twitter || '';
+      document.getElementById('inputSocialEmail').value = siteData.socials.email || '';
+      document.getElementById('inputSocialCopyright').value = siteData.socials.copyright || '';
+
+      // Portfolio & Hobbies CMS Lists
+      renderCmsPortfolioList();
+      renderCmsHobbiesList();
+    }
+
+    // PORTOFOLIO / AKUISISI CMS CRUD
+    function renderCmsPortfolioList() {
+      const container = document.getElementById('cmsPortfolioList');
+      const portfolioList = siteData.portfolio || [];
+      
+      if (portfolioList.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full p-4 text-center border border-classy-border rounded-xl text-classy-muted text-xs">
+            Belum ada item akuisisi. Klik "+ Tambah Akuisisi Baru" untuk membuat.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = portfolioList.map((p, i) => `
+        <div class="bg-classy-bg border border-classy-border p-4 rounded-xl flex items-start justify-between gap-3 shadow-md">
+          <div class="space-y-1 flex-1 overflow-hidden">
+            <div class="flex items-center gap-2">
+              <span class="text-[9px] font-bold uppercase text-classy-gold bg-classy-gold/10 px-2 py-0.5 rounded border border-classy-gold/20">${p.sector}</span>
+              <span class="text-[10px] text-emerald-400 font-semibold">${p.growth}</span>
+            </div>
+            <h4 class="text-sm font-bold text-classy-text truncate">${p.title}</h4>
+            <p class="text-xs text-classy-gold font-medium">Nilai Transaksi: ${p.value}</p>
+            <p class="text-[11px] text-classy-muted line-clamp-2">${p.desc}</p>
+          </div>
+          <div class="flex items-center space-x-1 shrink-0">
+            <button onclick="openPortfolioEditorModal(${i})" class="text-xs text-classy-gold hover:text-classy-accent p-2 rounded-lg hover:bg-classy-card transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button onclick="confirmDeletePortfolio(${i})" class="text-xs text-rose-400 hover:text-rose-300 p-2 rounded-lg hover:bg-classy-card transition-colors"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openPortfolioEditorModal(index) {
+      document.getElementById('portfolioIndex').value = index !== null ? index : '';
+      if (index !== null) {
+        const item = siteData.portfolio[index];
+        document.getElementById('portfolioEditorTitle').innerText = "Edit Kartu Akuisisi";
+        document.getElementById('portTitle').value = item.title;
+        document.getElementById('portSector').value = item.sector;
+        document.getElementById('portValue').value = item.value;
+        document.getElementById('portGrowth').value = item.growth;
+        document.getElementById('portDesc').value = item.desc;
+      } else {
+        document.getElementById('portfolioEditorTitle').innerText = "Tambah Akuisisi Baru";
+        document.getElementById('portTitle').value = '';
+        document.getElementById('portSector').value = '';
+        document.getElementById('portValue').value = '';
+        document.getElementById('portGrowth').value = '';
+        document.getElementById('portDesc').value = '';
+      }
+      document.getElementById('portfolioEditorModal').classList.remove('hidden');
+    }
+
+    function closePortfolioEditorModal() {
+      document.getElementById('portfolioEditorModal').classList.add('hidden');
+    }
+
+    function savePortfolioItem() {
+      const idx = document.getElementById('portfolioIndex').value;
+      const title = document.getElementById('portTitle').value.trim();
+      
+      if (!title) {
+        showToast('Nama perusahaan / entitas akuisisi tidak boleh kosong!', 'error');
+        return;
+      }
+
+      const newItem = {
+        title: title,
+        sector: document.getElementById('portSector').value.trim() || 'Private Equity',
+        value: document.getElementById('portValue').value.trim() || 'Undisclosed',
+        growth: document.getElementById('portGrowth').value.trim() || 'Strategic Hold',
+        desc: document.getElementById('portDesc').value.trim() || 'Investasi strategis dan eksekusi nilai operasional.'
+      };
+
+      if (!siteData.portfolio) siteData.portfolio = [];
+
+      if (idx !== '') {
+        siteData.portfolio[parseInt(idx)] = newItem;
+        showToast('Item akuisisi berhasil diperbarui!', 'success');
+      } else {
+        siteData.portfolio.push(newItem);
+        showToast('Item akuisisi baru berhasil ditambahkan!', 'success');
+      }
+
+      closePortfolioEditorModal();
+      renderCmsPortfolioList();
+      renderPortfolio();
+    }
+
+    function confirmDeletePortfolio(index) {
+      openConfirmModal(
+        'Hapus Item Akuisisi?',
+        `Apakah Anda yakin ingin menghapus portofolio "${siteData.portfolio[index].title}"?`,
+        function() {
+          siteData.portfolio.splice(index, 1);
+          renderCmsPortfolioList();
+          renderPortfolio();
+          showToast('Item akuisisi berhasil dihapus.', 'info');
+        }
+      );
+    }
+
+    // HOBBIES CMS CRUD
+    function renderCmsHobbiesList() {
+      const container = document.getElementById('cmsHobbiesList');
+      container.innerHTML = siteData.hobbies.map((h, i) => `
+        <div class="bg-classy-bg border border-classy-border p-3 rounded-xl flex items-center justify-between">
+          <div class="flex items-center space-x-3 overflow-hidden">
+            <img src="${h.img}" class="w-10 h-10 object-cover rounded-lg" onerror="this.onerror=null; this.src='https://placehold.co/100';" />
+            <div class="truncate">
+              <p class="text-xs font-bold text-classy-text truncate">${h.title}</p>
+              <p class="text-[10px] text-classy-gold">${h.category}</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-1">
+            <button onclick="openCardEditorModal(${i})" class="text-xs text-classy-gold hover:text-classy-accent p-2 rounded-lg"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button onclick="confirmDeleteHobby(${i})" class="text-xs text-rose-400 hover:text-rose-300 p-2 rounded-lg"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openCardEditorModal(index) {
+      document.getElementById('hobbyIndex').value = index !== null ? index : '';
+      if (index !== null) {
+        const item = siteData.hobbies[index];
+        document.getElementById('cardEditorTitle').innerText = "Edit Kartu Minat";
+        document.getElementById('hobbyTitle').value = item.title;
+        document.getElementById('hobbyCategory').value = item.category;
+        document.getElementById('hobbyDesc').value = item.desc;
+        document.getElementById('hobbyImg').value = item.img;
+      } else {
+        document.getElementById('cardEditorTitle').innerText = "Tambah Minat Baru";
+        document.getElementById('hobbyTitle').value = '';
+        document.getElementById('hobbyCategory').value = '';
+        document.getElementById('hobbyDesc').value = '';
+        document.getElementById('hobbyImg').value = '';
+      }
+      document.getElementById('cardEditorModal').classList.remove('hidden');
+    }
+
+    function closeCardEditorModal() {
+      document.getElementById('cardEditorModal').classList.add('hidden');
+    }
+
+    function saveHobbyCard() {
+      const idx = document.getElementById('hobbyIndex').value;
+      const newCard = {
+        title: document.getElementById('hobbyTitle').value || 'Minat Eksklusif',
+        category: document.getElementById('hobbyCategory').value || 'Lifestyle',
+        desc: document.getElementById('hobbyDesc').value || '',
+        img: document.getElementById('hobbyImg').value || 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=500&auto=format&fit=crop&q=80'
+      };
+
+      if (idx !== '') {
+        siteData.hobbies[parseInt(idx)] = newCard;
+        showToast('Kartu minat berhasil diperbarui.', 'success');
+      } else {
+        siteData.hobbies.push(newCard);
+        showToast('Kartu minat baru ditambahkan.', 'success');
+      }
+
+      closeCardEditorModal();
+      renderCmsHobbiesList();
+      renderHobbies();
+    }
+
+    function confirmDeleteHobby(index) {
+      openConfirmModal(
+        'Hapus Kartu Minat?',
+        `Apakah Anda yakin ingin menghapus "${siteData.hobbies[index].title}"?`,
+        function() {
+          siteData.hobbies.splice(index, 1);
+          renderCmsHobbiesList();
+          renderHobbies();
+          showToast('Kartu minat berhasil dihapus.', 'info');
+        }
+      );
+    }
+
+    // SAVE ALL CMS CHANGES
+    function saveCmsChanges() {
+      // Hero Save
+      siteData.hero.name = document.getElementById('inputHeroName').value;
+      siteData.hero.title = document.getElementById('inputHeroTitle').value;
+      siteData.hero.avatar = document.getElementById('inputHeroAvatar').value;
+      siteData.hero.bio = document.getElementById('inputHeroBio').value;
+      siteData.hero.ctaText = document.getElementById('inputHeroCta').value;
+
+      // About Save
+      siteData.about.headerTitle = document.getElementById('inputAboutTitle').value;
+      siteData.about.headerSubtitle = document.getElementById('inputAboutSubtitle').value;
+      siteData.about.heading = document.getElementById('inputAboutHeading').value;
+      siteData.about.text = document.getElementById('inputAboutText').value;
+      siteData.about.quote = document.getElementById('inputAboutQuote').value;
+      siteData.about.chips = document.getElementById('inputAboutChips').value.split(',').map(s => s.trim()).filter(Boolean);
+
+      // Socials Save
+      siteData.socials.linkedin = document.getElementById('inputSocialLinkedin').value;
+      siteData.socials.instagram = document.getElementById('inputSocialInstagram').value;
+      siteData.socials.twitter = document.getElementById('inputSocialTwitter').value;
+      siteData.socials.email = document.getElementById('inputSocialEmail').value;
+      siteData.socials.copyright = document.getElementById('inputSocialCopyright').value;
+
+      saveToStorage();
+      closeCmsModal();
+      showToast('Seluruh perubahan CMS berhasil disimpan!', 'success');
+    }
+
+    function confirmResetData() {
+      openConfirmModal(
+        'Reset Konten ke Bawaan?',
+        'Apakah Anda yakin ingin mengembalikan seluruh isi konten ke versi default awal?',
+        function() {
+          siteData = JSON.parse(JSON.stringify(DEFAULT_SITE_DATA));
+          saveToStorage();
+          populateCmsInputs();
+          showToast('Konten situs berhasil di-reset ke versi awal.', 'info');
+        }
+      );
+    }
+
+    // 6. TOAST SYSTEM & CUSTOM CONFIRMATION MODAL (No alert / confirm)
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      
+      let borderCol = 'border-classy-gold';
+      let icon = 'fa-circle-check text-classy-gold';
+      if (type === 'error') {
+        borderCol = 'border-rose-500';
+        icon = 'fa-circle-xmark text-rose-400';
+      } else if (type === 'info') {
+        borderCol = 'border-sky-500';
+        icon = 'fa-circle-info text-sky-400';
+      }
+
+      toast.className = `toast-anim flex items-center gap-3 bg-classy-card border ${borderCol} px-4 py-3 rounded-xl shadow-2xl text-xs text-classy-text max-w-md pointer-events-auto`;
+      toast.innerHTML = `
+        <i class="fa-solid ${icon} text-base"></i>
+        <span class="flex-1 font-medium">${message}</span>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function openConfirmModal(title, message, onConfirm) {
+      document.getElementById('confirmTitle').innerText = title;
+      document.getElementById('confirmMessage').innerText = message;
+      confirmCallback = onConfirm;
+
+      const modal = document.getElementById('confirmModal');
+      modal.classList.remove('hidden');
+
+      document.getElementById('confirmOkBtn').onclick = function() {
+        if (confirmCallback) confirmCallback();
+        closeConfirmModal();
+      };
+
+      document.getElementById('confirmCancelBtn').onclick = function() {
+        closeConfirmModal();
+      };
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirmModal').classList.add('hidden');
+      confirmCallback = null;
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      showToast('Pesan resmi Anda telah berhasil dikirimkan ke Executive Office.', 'success');
+      e.target.reset();
+    }
+
+    // Initialize on window load
+    window.addEventListener('DOMContentLoaded', initData);
+  </script>
+</body>
+</html>
